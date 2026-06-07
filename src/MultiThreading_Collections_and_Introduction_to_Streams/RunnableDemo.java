@@ -1,6 +1,7 @@
+
 package MultiThreading_Collections_and_Introduction_to_Streams;
 
-class A extends Thread
+class A1 implements Runnable
 {
     public void run()
     {
@@ -16,7 +17,7 @@ class A extends Thread
     }
 }
 
-class B extends Thread
+class B1 implements Runnable
 {
     public void run()
     {
@@ -32,25 +33,33 @@ class B extends Thread
     }
 }
 
-public class Multi_Threading1 {
+public class RunnableDemo  {
     public static void main(String[] args) throws InterruptedException {
 
-        A obj1 = new A();
-        obj1.setPriority(Thread.MIN_PRIORITY); // 1
-        obj1.start();
+        A1 obj1 = new A1();
+        B1 obj2 = new B1();
 
-        System.out.println("Priority of obj1: " + obj1.getPriority());
+        Thread t1 = new Thread(obj1);
+        Thread t2 = new Thread(obj2);
 
-        B obj2 = new B();
-        obj2.setPriority(Thread.MAX_PRIORITY); // 10
-        obj2.start();
+        t1.setPriority(Thread.MIN_PRIORITY);
+        t2.setPriority(Thread.MAX_PRIORITY);
 
+        System.out.println("Priority of t1: " + t1.getPriority());
+        System.out.println("Priority of t2: " + t2.getPriority());
 
-        obj1.join();
-        obj2.join();
+        t1.start();
+        t2.start();
+
+        t1.join();
+        t2.join();
 
         System.out.println("Both threads finished!");
     }
 }
+
+
+
+
 
 
